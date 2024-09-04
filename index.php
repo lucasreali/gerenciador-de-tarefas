@@ -52,10 +52,11 @@ if ($conn) {
         <?php foreach ($tasks as $task): ?>
             <div class="task">
                 <input
-                        class="progress"
+                        class="progress  <?= $task['completed'] ? "done" : ""?>"
                         name="progress"
                         type="checkbox"
                     <?= $task["completed"] ? "checked" : "" ?>
+                        data-task-id="<?= $task['id']?>"
                 />
 
                 <p class="task-description">
@@ -72,12 +73,13 @@ if ($conn) {
                     </a>
                 </div>
 
-                <form action="" class="to-do-form edit-task hidden">
+                <form action="actions/update.php" method="post" class="to-do-form edit-task hidden">
                     <input
                             name="description"
                             placeholder="Edit your task here"
                             type="text"
                     />
+                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
                     <button
                             class="form-button confirm-button"
                             type="submit"
